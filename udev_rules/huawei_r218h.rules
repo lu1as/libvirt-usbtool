@@ -1,7 +1,7 @@
 # Huawei r218h in mass storage mode
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1f0a", RUN+="/usr/local/bin/usbtool attach --vm=opnsense --vendor=12d1 --device=1f0a"
-ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1f0a", RUN+="/usr/local/bin/usbtool detach --vm=opnsense --vendor=12d1 --device=1f0a"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1f0a", RUN+="/usr/local/bin/usbtool attach --domain=opnsense --vendor=12d1 --device=1f0a"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1f0a", RUN+="/usr/local/bin/usbtool detach --domain=opnsense --vendor=12d1 --device=1f0a"
 
 # Huawei r218h in ethernet adapter mode after running `usb_modeswitch -v 12d1 -p 1f0a -P 1c51 --huawei-new-mode`
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1c51", RUN+="/usr/local/bin/usbtool attach --vm=opnsense --vendor=12d1 --device=1c51"
-ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1c51", RUN+="/usr/local/bin/usbtool detach --vm=opnsense --vendor=12d1 --device=1c51"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1c51", RUN+="/usr/local/bin/usbtool attach --domain=opnsense --vendor=12d1 --device=1c51"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1c51", RUN+="/usr/local/bin/usbtool detach --domain=opnsense --vendor=12d1 --device=1c51"

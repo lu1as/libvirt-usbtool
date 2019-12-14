@@ -22,16 +22,19 @@ chmod +x /usr/local/bin/usbtool
 
 run `usbtool --help` to print help
 ```
-usage: usbtool [-h] [--vm VM] [--vendor VENDOR] [--device DEVICE] cmd
+usage: usbtool.py [-h] [--connect CONNECT] command [--domain DOMAIN] [--vendor VENDOR] [--device DEVICE]
+
+Manage usb devices of libvirt domains
 
 positional arguments:
-  cmd              list, attach, detach
+  command            list, attach or detach
 
 optional arguments:
-  -h, --help       show this help message and exit
-  --vm VM          virtual machine name
-  --vendor VENDOR  usb vendor id
-  --device DEVICE  usb device id
+  -h, --help         show this help message and exit
+  --connect CONNECT  libvirt connection url (default: qemu:///system)
+  --domain DOMAIN    domain name
+  --vendor VENDOR    vendor id of usb device
+  --device DEVICE    device id of usb device
 ```
 
 ## Add usb devices automatally to virtual machine
@@ -43,8 +46,8 @@ Bus 003 Device 060: ID 12d1:1c51 Huawei Technologies Co., Ltd.
 
 Then create udev rules file at `/etc/udev/rules.d/90-libvirt-usb.rules`.
 ```
-ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1f0a", RUN+="/usr/local/bin/usbtool attach --vm=ubuntu --vendor=12d1 --device=1f0a"
-ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1f0a", RUN+="/usr/local/bin/usbtool detach --vm=ubuntu --vendor=12d1 --device=1f0a"
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="1f0a", RUN+="/usr/local/bin/usbtool attach --domain=ubuntu --vendor=12d1 --device=1f0a"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="12d1", ENV{ID_MODEL_ID}=="1f0a", RUN+="/usr/local/bin/usbtool detach --domain=ubuntu --vendor=12d1 --device=1f0a"
 ```
 
 Finally reload udev rules
