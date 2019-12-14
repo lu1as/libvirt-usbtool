@@ -53,11 +53,11 @@ elif args.command == 'attach' or args.command == 'detach':
     print('domain does not exist')
     sys.exit(1)
 
-  helpers.get_usb_hostdev_xml('0x' + args.vendor, '0x' + args.device)
+  dev = get_usb_hostdev_xml('0x' + args.vendor, '0x' + args.device)
   if args.command == 'attach':
-    dom.attachDevice(helpers.get_usb_hostdev_xml(args.vendor, args.device))
+    dom.attachDevice(dev)
   elif args.command == 'detach':
-    dom.detachDevice(helpers.get_usb_hostdev_xml(args.vendor, args.device))
+    dom.detachDevice(dev)
   sys.exit(0)
 
 sys.exit('no command given')
