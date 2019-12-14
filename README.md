@@ -37,6 +37,31 @@ optional arguments:
   --device DEVICE    device id of usb device
 ```
 
+## REST API
+
+Copy the file `config.sample.py` to `config.py` and replace the default token with a random string.
+
+Then install the required packages and run the app:
+```sh
+pip install -r requirements.txt
+python3 app.py
+```
+
+API is now available at: `http://127.0.0.1:5000/`
+All requests should contain a Bearer Authorization header with the valid token.
+To get device information of a domain request path `/api/domains/<name>`:
+
+```sh
+curl -X PUT http://127.0.0.1:5000/api/domains/ubuntu -H 'Authorization: Bearer mysecrettoken'
+```
+
+For attach or detach devices call path `/api/domains/<name>/attach` or  `/api/domains/<name>/detach` with vendor and product ids in the request body:
+
+```sh
+curl -X PUT http://127.0.0.1:5000/api/domains/ubuntu/attach -H 'Authorization: Bearer mysecrettoken' \
+  -H 'Content-Type: application/json' -d '{"vendor_id":"0x0000","product_id":"0x1111"}'
+```
+
 ## Add usb devices automatally to virtual machine
 
 First look up vendor and product id of your usb device with `lsusb`. For example:
