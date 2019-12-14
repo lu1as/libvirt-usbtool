@@ -5,17 +5,17 @@
 install dependencies (CentOS)
 ```sh
 yum install python36-pyusb python36-jinja2
+pip3.6 install libvirt-python
 ```
 
 install dependencies (Fedora)
 ```sh
-yum install python3-pyusb python3-jinja2
+dnf install python3-pyusb python3-jinja2 python3-libvirt
 ```
 
 copy `usbtool.py` to `/usr/local/bin`
 ```sh
 cp usbtool.py /usr/local/bin/usbtool
-chmod +x /usr/local/bin/usbtool
 ```
 
 ## Help

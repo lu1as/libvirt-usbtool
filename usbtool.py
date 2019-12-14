@@ -5,7 +5,16 @@ import os
 import argparse
 import usb.core
 import libvirt
-import libvirt_helpers as helpers
+from jinja2 import Template
+
+XML="""
+<hostdev mode='subsystem' type='usb'>
+  <source>
+    <vendor id='{{vendor_id}}'/>
+    <product id='{{product_id}}'/>
+  </source>
+</hostdev>
+"""
 
 def list_devices():
   devices = usb.core.find(find_all=True)
@@ -17,6 +26,10 @@ def is_valid(dev):
   if dev.manufacturer is None or 'Linux' in dev.manufacturer:
     return False
   return True
+
+def get_usb_hostdev_xml(vendorID, productID):
+  t = Template(XML)
+  return t.render(vendor_id=vendorID, product_id=productID)
 
 p = argparse.ArgumentParser(description='Manage usb devices of libvirt domains')
 p.add_argument('command', help='list, attach or detach')
