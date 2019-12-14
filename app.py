@@ -1,9 +1,10 @@
-from flask import Flask
-from flask_restful import Api, reqparse
-from flask_httpauth import HTTPTokenAuth
 import sys
 import libvirt
 import libvirt_helpers as helpers
+from flask import Flask
+from flask_restful import Api, reqparse
+from flask_httpauth import HTTPTokenAuth
+from usbtool import get_usb_hostdev_xml
 
 import config
 
@@ -65,7 +66,7 @@ def attach_to_domain(name):
   args = parser.parse_args()
 
   try:
-    domain.attachDevice(helpers.get_usb_hostdev_xml(args['vendor_id'], args['product_id']))
+    domain.attachDevice(get_usb_hostdev_xml(args['vendor_id'], args['product_id']))
   except libvirt.libvirtError as e:
     return wrap_error('attach device failed: ' + e.get_error_message()), 400
 
@@ -86,7 +87,7 @@ def detach_from_domain(name):
   args = parser.parse_args()
 
   try:
-    domain.detachDevice(helpers.get_usb_hostdev_xml(args['vendor_id'], args['product_id']))
+    domain.detachDevice(get_usb_hostdev_xml(args['vendor_id'], args['product_id']))
   except libvirt.libvirtError as e:
     return wrap_error('detach device failed: ' + e.get_error_message()), 400
   return  wrap_message('device detached'), 200
