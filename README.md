@@ -1,4 +1,4 @@
-# qemu-usbtool
+# libvirt-usbtool
 
 ## Installation
 
@@ -42,9 +42,11 @@ optional arguments:
 Copy the file `config.sample.py` to `config.py` and replace the default token with a random string.
 
 Then install the required packages and run the app:
+
 ```sh
 pip install -r requirements.txt
-python3 app.py
+export FLASK_APP=app.py
+flask run --host=127.0.0.1
 ```
 
 API is now available at: `http://127.0.0.1:5000/`
