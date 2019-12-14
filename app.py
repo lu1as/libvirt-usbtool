@@ -39,7 +39,7 @@ def show_domain(name):
     return wrap_error('failed to open connecton to the hypervisor'), 500
 
   try:
-    domain = qemu.lookupByName(name)
+    domain = conn.lookupByName(name)
   except:
     conn.close()
     return wrap_error('domain not found'), 404
@@ -60,7 +60,7 @@ def attach_to_domain(name):
     return wrap_error('failed to open connecton to the hypervisor'), 500
 
   try:
-    domain = qemu.lookupByName(name)
+    domain = conn.lookupByName(name)
   except:
     conn.close()
     return wrap_error('domain not found'), 404
@@ -88,7 +88,7 @@ def detach_from_domain(name):
     return wrap_error('failed to open connecton to the hypervisor'), 500
 
   try:
-    domain = qemu.lookupByName(name)
+    domain = conn.lookupByName(name)
   except:
     conn.close()
     return wrap_error('domain not found'), 404
