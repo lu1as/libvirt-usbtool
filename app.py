@@ -54,7 +54,7 @@ def show_domain(name):
 
 @app.route('/api/domains/<string:name>/start', methods=['POST'])
 @auth.login_required
-def attach_to_domain(name):
+def start_domain(name):
   conn = libvirt.open(config.libvirt_url)
   if conn == None:
     return wrap_error('failed to open connecton to the hypervisor'), 500
