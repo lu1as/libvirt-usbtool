@@ -52,6 +52,28 @@ def show_domain(name):
     "usb_devices": helpers.get_usb_devices(domain),
   }, 200
 
+@app.route('/api/domains/<string:name>/start', methods=['POST'])
+@auth.login_required
+def attach_to_domain(name):
+  conn = libvirt.open(config.libvirt_url)
+  if conn == None:
+    return wrap_error('failed to open connecton to the hypervisor'), 500
+
+  try:
+    domain = conn.lookupByName(name)
+  except:
+    conn.close()
+    return wrap_error('domain not found'), 404
+
+  try:
+    domain.create()
+  except libvirt.libvirtError as e:
+    conn.close()
+    return wrap_error('start domain failed: ' + e.get_error_message()), 400
+
+  conn.close()
+  return wrap_message('domain started'), 200
+
 @app.route('/api/domains/<string:name>/attach', methods=['PUT'])
 @auth.login_required
 def attach_to_domain(name):
