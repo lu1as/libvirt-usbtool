@@ -44,7 +44,7 @@ Copy the file `config.sample.py` to `config.py` and replace the default token wi
 Then install the required packages and run the app:
 
 ```sh
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 export FLASK_APP=app.py
 flask run --host=127.0.0.1
 ```
@@ -54,7 +54,7 @@ All requests should contain a Bearer Authorization header with the valid token.
 To get device information of a domain request path `/api/domains/<name>`:
 
 ```sh
-curl -X PUT http://127.0.0.1:5000/api/domains/ubuntu -H 'Authorization: Bearer mysecrettoken'
+curl -X GET http://127.0.0.1:5000/api/domains/ubuntu -H 'Authorization: Bearer mysecrettoken'
 ```
 
 For attach or detach devices call path `/api/domains/<name>/attach` or  `/api/domains/<name>/detach` with vendor and product ids in the request body:
